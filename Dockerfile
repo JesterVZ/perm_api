@@ -1,6 +1,6 @@
 FROM node
 
-WORKDIR ./app
+WORKDIR ./perm_api
 
 COPY package*.json ./
 
@@ -10,4 +10,4 @@ COPY . .
 
 EXPOSE 3000
 
-CMD ["node", "app.js"]
+CMD ["node", "index.js"]
