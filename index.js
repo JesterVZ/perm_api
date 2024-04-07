@@ -7,7 +7,7 @@ app.use(cors())
 
 const connection = mysql.createConnection({
   port: '3303',
-  host: '176.57.213.98',
+  host: '178.253.40.144',
   user: 'root',
   password: '112233',
   database: 'perm_dp'
