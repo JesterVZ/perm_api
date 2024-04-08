@@ -13,13 +13,25 @@ const connection = mysql.createConnection({
   database: 'perm_dp'
 });
 
-connection.connect((err) => {
-  if (err) {
-    console.error('Error connecting to database: ' + err.stack);
-    return;
-  }
-  console.log('Connected to database as id ' + connection.threadId);
-});
+try{
+  connection.connect((err) => {
+    if (err) {
+      console.error('Error connecting to database: ' + err.stack);
+      return;
+    }
+    console.log('Connected to database as id ' + connection.threadId);
+  });
+}catch(e){
+  connection.destroy();
+  connection.connect((err) => {
+    if (err) {
+      console.error('Error connecting to database: ' + err.stack);
+      return;
+    }
+    console.log('Connected to database as id ' + connection.threadId);
+  });
+}
+
 
 
 
