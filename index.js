@@ -13,16 +13,7 @@ const connection = mysql.createConnection({
   database: 'perm_dp'
 });
 
-try{
-  connection.connect((err) => {
-    if (err) {
-      console.error('Error connecting to database: ' + err.stack);
-      return;
-    }
-    console.log('Connected to database as id ' + connection.threadId);
-  });
-}catch(e){
-  connection.destroy();
+function makeConnection(){
   connection.connect((err) => {
     if (err) {
       console.error('Error connecting to database: ' + err.stack);
@@ -32,11 +23,13 @@ try{
   });
 }
 
+makeConnection();
 
 
 
 
 app.get('/question', (req, res) => {
+  try{
     connection.query('SELECT * FROM questions', (err, results) => {
       if (err) {
         console.error('Error fetching question: ' + err.stack);
@@ -57,6 +50,10 @@ app.get('/question', (req, res) => {
       });
       
     });
+  }catch(e){
+    makeConnection();
+  }
+    
   });
 
   app.listen(3000);
