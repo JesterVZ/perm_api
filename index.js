@@ -27,6 +27,10 @@ class Database {
     });
   }
 
+  closeConnection(){
+    this.connection.destroy();
+  }
+
   getQuestionsAndAnswers(req, res) {
     try {
       this.connection.query('SELECT * FROM questions', (err, questionResults) => {
@@ -48,6 +52,8 @@ class Database {
             'answers': answers
           });
         });
+        this.closeConnection()
+        console.log('connection is closed');
       });
     } catch (e) {
       this.makeConnection();
